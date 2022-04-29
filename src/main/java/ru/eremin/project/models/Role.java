@@ -4,6 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -18,7 +19,7 @@ public class Role implements GrantedAuthority, Serializable {
     private String name;
 
     @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
+    private Set<User> users = new HashSet<>();
 
     public Long getId() {
         return id;

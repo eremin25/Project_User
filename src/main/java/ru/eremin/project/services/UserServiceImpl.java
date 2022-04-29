@@ -51,10 +51,10 @@ public class UserServiceImpl implements UserService {
     */
     @Override
     public void saveUser(User user) {
-        if (user.getLogin().equals(userRepository.findUserByLogin(user.getLogin()).getLogin())) {
-            throw new RuntimeException("Пользовать уже зарегистрирован");
-        } else {
+        if (userRepository.findUserByLogin(user.getLogin()) == null) {
             userRepository.save(user);
+        } else {
+            throw new RuntimeException("Пользователь уже существует");
         }
     }
 
@@ -64,6 +64,24 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUserById(Long id) {
         userRepository.deleteById(id);
+    }
+
+
+    /*
+    Изменение пользователя в базе данных
+    */
+    @Override
+    public void updateUser(User user) {
+        userRepository.save(user);
+    }
+
+
+    /*
+    Получение пользователя по ID.
+    */
+    @Override
+    public User findUserById(Long id) {
+        return userRepository.findUserById(id);
     }
 
 

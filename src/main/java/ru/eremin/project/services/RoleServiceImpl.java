@@ -7,8 +7,8 @@ import ru.eremin.project.models.Role;
 import ru.eremin.project.repositories.RoleRepository;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -22,16 +22,28 @@ public class RoleServiceImpl implements RoleService {
         this.roleRepository = roleRepository;
     }
 
+
+    /*
+    Получение списка всех ролей.
+    */
     @Override
-    public List<Role> allRoles() {
-        return roleRepository.findAll().stream().toList();
+    public Set<Role> allRoles() {
+        return roleRepository.findAll().stream().collect(Collectors.toSet());
     }
 
+
+    /*
+    Получение роли по ID.
+    */
     @Override
     public Role findRoleByName(String name) {
         return roleRepository.findRoleByName(name);
     }
 
+
+    /*
+    Конвертация списка названия ролей(String) в список ролей(Role)
+    */
     @Override
     public Set<Role> convertingSetOfStringsToSetOfRoles(Set<String> roleNames) {
         Set<Role> roles = new HashSet<>();

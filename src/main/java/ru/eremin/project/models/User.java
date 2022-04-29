@@ -17,7 +17,7 @@ public class User implements UserDetails, Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "login", unique = true)
+    @Column(name = "login")
     private String login;
 
     @Column(name = "password")

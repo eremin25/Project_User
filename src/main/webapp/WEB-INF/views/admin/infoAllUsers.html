@@ -27,7 +27,7 @@
         <td th:text="${user.getNumberPhone()}">Number Phone</td>
         <td th:each="role : ${user.getRoles()}" th:text="${role.getName()}">Roles</td>
         <td>
-            <form th:method="GET" th:action="@{/admin/{id}/edit(id=${user.getId()})}">
+            <form th:method="GET" th:action="@{/admin/{id}/update(id=${user.getId()})}">
                 <input type="submit" value="Изменить"/>
             </form>
         </td>
