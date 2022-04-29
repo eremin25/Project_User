@@ -11,33 +11,32 @@
             <label for="login">Login: </label>
             <input type="text" th:field="*{login}" id="login"/>
             </p>
-            <label for="password">Password: </label></td>
+            <label for="password">Пароль: </label></td>
             <input type="text" th:field="*{password}" id="password"/>
             </p>
-            <label for="firstName">First Name: </label>
+            <label for="firstName">Имя: </label>
             <input type="text" th:field="*{firstName}" id="firstName"/>
             </p>
-            <label for="lastName">Last Name: </label>
+            <label for="lastName">Фамилия: </label>
             <input type="text" th:field="*{lastName}" id="lastName"/>
             </p>
             <label for="email">Email: </label>
             <input type="text" th:field="*{email}" id="email"/>
             </p>
-            <label for="numberPhone">Number Phone: </label>
+            <label for="numberPhone">Номер телефона: </label>
             <input type="text" th:field="*{numberPhone}" id="numberPhone"/>
             </p>
-            <label>
-                <select size="3" multiple="multiple" name="roles" id="roles">
-                    <option disabled>Roles:</option>
-                    <option value="ADMIN">ADMIN</option>
-                    <option selected value="USER">USER</option>
+            <label>Роли:
+                <select size="2" multiple name="allRoles" required="required">
+                    <option selected="selected" value="ROLE_USER">USER</option>
+                    <option value="ROLE_ADMIN">ADMIN</option>
                 </select>
             </label>
             </p>
         </fieldset>
 
 
-        <input type="submit" value="Add User">
+        <input type="submit" value="Сохранить">
 
     </form>
     </table>

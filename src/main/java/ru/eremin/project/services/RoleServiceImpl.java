@@ -6,8 +6,10 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.eremin.project.models.Role;
 import ru.eremin.project.repositories.RoleRepository;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
+
 
 @Service
 @Transactional
@@ -21,12 +23,21 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Set<Role> allRoles() {
-        return roleRepository.findAll().stream().collect(Collectors.toSet());
+    public List<Role> allRoles() {
+        return roleRepository.findAll().stream().toList();
     }
 
     @Override
     public Role findRoleByName(String name) {
         return roleRepository.findRoleByName(name);
+    }
+
+    @Override
+    public Set<Role> convertingSetOfStringsToSetOfRoles(Set<String> roleNames) {
+        Set<Role> roles = new HashSet<>();
+        for (String name : roleNames) {
+            roles.add(findRoleByName(name));
+        }
+        return roles;
     }
 }

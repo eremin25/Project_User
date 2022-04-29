@@ -8,4 +8,6 @@ import ru.eremin.project.models.User;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     User findUserByLogin(String login);
+
+    User findUserById(Long id);
 }

@@ -27,20 +27,45 @@ public class UserServiceImpl implements UserService {
     }
 
 
+    /*
+    Получение пользователя из базы данных по Login.
+    */
     @Override
     public User findUserByLogin(String login) {
         return userRepository.findUserByLogin(login);
     }
 
+
+    /*
+    Получение всех существующих пользователей из базы данных.
+    */
     @Override
     public Set<User> findAllUsers() {
         return userRepository.findAll().stream().collect(Collectors.toSet());
     }
 
+
+    /*
+    Добавление нового пользователя в базу данных, если пользователь с таким логином уже существует
+    выбрасывает исключение.
+    */
     @Override
     public void saveUser(User user) {
-        userRepository.save(user);
+        if (user.getLogin().equals(userRepository.findUserByLogin(user.getLogin()).getLogin())) {
+            throw new RuntimeException("Пользовать уже зарегистрирован");
+        } else {
+            userRepository.save(user);
+        }
     }
+
+    /*
+    Удаление пользователя по ID.
+    */
+    @Override
+    public void deleteUserById(Long id) {
+        userRepository.deleteById(id);
+    }
+
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
@@ -50,6 +75,7 @@ public class UserServiceImpl implements UserService {
         }
         return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
     }
+
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
         return roles.stream().map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());

@@ -8,4 +8,5 @@ import ru.eremin.project.models.Role;
 public interface RoleRepository extends JpaRepository<Role, Long> {
 
     Role findRoleByName(String name);
+
 }

@@ -7,10 +7,10 @@
 <body>
 <table>
     <tr>
-        <td>First name</td>
-        <td>Last name</td>
+        <td>Имя</td>
+        <td>Фамилия</td>
         <td>Email</td>
-        <td>Number phone</td>
+        <td>Номер телефона</td>
     </tr>
     <tr>
         <td th:text="${user.getFirstName()}">First Name</td>
@@ -21,7 +21,7 @@
     <tr>
         <td>
             <form th:method="GET" th:action="@{/logout}">
-            <input type="submit" value="Logout">
+            <input type="submit" value="Выйти">
             </form>
         </td>
     </tr>
