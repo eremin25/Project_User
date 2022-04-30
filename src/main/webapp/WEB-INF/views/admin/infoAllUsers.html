@@ -1,49 +1,109 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
+    <!-- Обязательные метатеги -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Information All Users</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 </head>
+
 <body>
-<a href="admin/new">Добавить пользователя</a>
-<table>
-    <tr>
-        <td>Id</td>
-        <td>Login</td>
-        <td>Имя</td>
-        <td>Фамилия</td>
-        <td>Email</td>
-        <td>Номер телефона</td>
-        <td>Роли</td>
-        <td>Изменить</td>
-        <td>Удалить</td>
-    </tr>
-    <tr th:each="user : ${users}">
-        <td th:text="${user.getId()}">Id</td>
-        <td th:text="${user.getLogin()}">Login</td>
-        <td th:text="${user.getFirstName()}">First Name</td>
-        <td th:text="${user.getLastName()}">Last Name</td>
-        <td th:text="${user.getEmail()}">Email</td>
-        <td th:text="${user.getNumberPhone()}">Number Phone</td>
-        <td th:each="role : ${user.getRoles()}" th:text="${role.getName()}">Roles</td>
-        <td>
-            <form th:method="GET" th:action="@{/admin/{id}/update(id=${user.getId()})}">
-                <input type="submit" value="Изменить"/>
-            </form>
-        </td>
-        <td>
-            <form th:method="DELETE" th:action="@{/admin/{id}(id=${user.getId()})}">
-                <input type="submit" value="Удалить"/>
-            </form>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <form th:method="GET" th:action="@{/logout}">
-                <input type="submit" value="Выйти">
-            </form>
-        </td>
-    </tr>
-</table>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <p class="navbar-brand mb-0 h1 text-white">
+            <b><span class="navbar-text text-white" th:text="${user.getEmail()}">Email</span></b>
+            <span class="navbar-text text-white">с ролями:</span>
+            <span class="navbar-text text-white" th:each="role : ${user.getRoles()}" th:text="${role.getName()}+'&nbsp;'">role</span>
+        </p>
+        <div class="dropdown" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Выйти</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-md-3 p-4">
+
+            <div class="nav flex-column nav-pills">
+                <a class="nav-link active" href="/admin">Admin</a>
+                <a class="nav-link" href="/user">User</a>
+            </div>
+        </div>
+
+        <div class="col-md-9 col-md-offset-4">
+
+            <h1 class="m-4">Панель администратора</h1>
+
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item disabled">
+                        <span class="page-link">Таблица пользователей</span>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="/admin/new">Добавить пользователя</a></li>
+                </ul>
+            </nav>
+
+            <table class="table">
+                <thead>
+                <th scope="col">Все пользователи</th>
+                </thead>
+                <tbody>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Login</th>
+                        <th scope="col">Имя</th>
+                        <th scope="col">Фамилия</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Номер телефона</th>
+                        <th scope="col">Роли</th>
+                        <th scope="col">Изменить</th>
+                        <th scope="col">Удалить</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="user : ${users}">
+                        <td th:text="${user.getId()}">Id</td>
+                        <td th:text="${user.getLogin()}">Login</td>
+                        <td th:text="${user.getFirstName()}">First Name</td>
+                        <td th:text="${user.getLastName()}">Last Name</td>
+                        <td th:text="${user.getEmail()}">Email</td>
+                        <td th:text="${user.getNumberPhone()}">Number Phone</td>
+                        <td th:each="role : ${user.getRoles()}" th:text="${role.getName()}">Roles</td>
+                        <td>
+                            <form th:method="GET" th:action="@{/admin/{id}/update(id=${user.getId()})}">
+                                <button type="submit" class="btn btn-info">Изменить</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form th:method="DELETE" th:action="@{/admin/{id}(id=${user.getId()})}">
+                                <button type="submit" class="btn btn-danger">Удалить</button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
 </body>
 </html>

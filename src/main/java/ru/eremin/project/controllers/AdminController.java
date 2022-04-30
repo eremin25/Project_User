@@ -8,6 +8,7 @@ import ru.eremin.project.models.User;
 import ru.eremin.project.services.RoleService;
 import ru.eremin.project.services.UserService;
 
+import java.security.Principal;
 import java.util.Set;
 
 //Стартовая страница администратора.
@@ -26,9 +27,10 @@ public class AdminController {
 
     //Информация о всех пользователях из базы данных.
     @GetMapping
-    public String infoAllUsers(Model model) {
+    public String infoAllUsers(Model model, Principal principal) {
         model.addAttribute("users", userService.findAllUsers());
-        return "admin/infoAllUsers";
+        model.addAttribute("user", userService.findUserByLogin(principal.getName()));
+        return "admin/pageAdmin";
     }
 
     //Форма создания нового пользователя.
