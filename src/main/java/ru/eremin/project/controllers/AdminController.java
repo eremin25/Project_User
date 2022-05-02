@@ -27,22 +27,16 @@ public class AdminController {
 
     //Информация о всех пользователях из базы данных.
     @GetMapping
-    public String infoAllUsers(Model model, Principal principal) {
+    public String infoAllUsers(@ModelAttribute("newUser") User user, Model model, Principal principal) {
         model.addAttribute("users", userService.findAllUsers());
         model.addAttribute("user", userService.findUserByLogin(principal.getName()));
-        return "admin/pageAdmin";
-    }
-
-    //Форма создания нового пользователя.
-    @GetMapping("/new")
-    public String newUser(@ModelAttribute("user") User user, Model model) {
         model.addAttribute("allRoles", roleService.allRoles());
-        return "admin/newUser";
+        return "admin/pageAdmin";
     }
 
     //Получение данных из формы и добавление пользователя в базу данных.
     @PostMapping("/new")
-    public String createUser(@ModelAttribute("user") User user, @RequestParam("allRoles") Set<String> roles) {
+    public String createUser(@ModelAttribute("newUser") User user, @RequestParam("allRoles") Set<String> roles) {
         user.setRoles(roleService.convertingSetOfStringsToSetOfRoles(roles));
         userService.saveUser(user);
         return "redirect:/admin";
@@ -54,16 +48,6 @@ public class AdminController {
         userService.deleteUserById(id);
         return "redirect:/admin";
     }
-
-
-    //Форма изменения пользователя.
-    @GetMapping("/{id}/update")
-    public String updateUser(@PathVariable Long id, Model model) {
-        model.addAttribute(userService.findUserById(id));
-        model.addAttribute("allRoles", roleService.allRoles());
-        return "admin/updateUser";
-    }
-
 
     //Получение данных из формы и добавление измененного пользователя в базу данных.
     @PatchMapping("/{id}")
