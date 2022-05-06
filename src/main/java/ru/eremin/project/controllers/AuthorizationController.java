@@ -3,6 +3,7 @@ package ru.eremin.project.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,11 +25,13 @@ public class AuthorizationController {
 
     private UserService userService;
     private RoleService roleService;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public AuthorizationController(UserService userService, RoleService roleService) {
+    public AuthorizationController(UserService userService, RoleService roleService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.roleService = roleService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/login")
@@ -47,10 +50,12 @@ public class AuthorizationController {
     }
 
     @PostMapping("/registration/new")
-    public String saveUser(@ModelAttribute("user") User user) {
+    public String saveUser(@ModelAttribute("user") User user,
+                           @RequestParam("password") String password) {
         Set<Role> role = user.getRoles();
         role.add(roleService.findRoleByName("USER"));
         user.setRoles(role);
+        user.setPassword(passwordEncoder.encode(password));
         userService.saveUser(user);
         return "redirect:/login";
     }

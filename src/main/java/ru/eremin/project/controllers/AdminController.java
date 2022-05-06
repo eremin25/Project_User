@@ -1,6 +1,8 @@
 package ru.eremin.project.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,11 +20,13 @@ public class AdminController {
 
     private UserService userService;
     private RoleService roleService;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public AdminController(UserService userService, RoleService roleService) {
+    public AdminController(UserService userService, RoleService roleService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.roleService = roleService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     //Информация о всех пользователях из базы данных.
@@ -36,8 +40,11 @@ public class AdminController {
 
     //Получение данных из формы и добавление пользователя в базу данных.
     @PostMapping("/new")
-    public String createUser(@ModelAttribute("newUser") User user, @RequestParam("allRoles") Set<String> roles) {
+    public String createUser(@ModelAttribute("newUser") User user,
+                             @RequestParam("allRoles") Set<String> roles,
+                             @RequestParam("password") String password) {
         user.setRoles(roleService.convertingSetOfStringsToSetOfRoles(roles));
+        user.setPassword(passwordEncoder.encode(password));
         userService.saveUser(user);
         return "redirect:/admin";
     }
@@ -51,8 +58,13 @@ public class AdminController {
 
     //Получение данных из формы и добавление измененного пользователя в базу данных.
     @PutMapping("/{id}")
-    public String saveUpdatedUser(@ModelAttribute("user") User user, @RequestParam("allRoles") Set<String> roles) {
+    public String saveUpdatedUser(@ModelAttribute("user") User user,
+                                  @RequestParam("allRoles") Set<String> roles,
+                                  @RequestParam("password") String password) {
         user.setRoles(roleService.convertingSetOfStringsToSetOfRoles(roles));
+        if (!userService.findUserByLogin(user.getLogin()).getPassword().equals(password)) {
+            user.setPassword(passwordEncoder.encode(password));
+        }
         userService.updateUser(user);
         return "redirect:/admin";
     }

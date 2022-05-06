@@ -105,14 +105,14 @@
                                                                         <div class="col-auto text-center m-auto">
                                                                             <fieldset>
                                                                             <br>
-                                                                            <label for="idEdit"><b>Login</b></label>
+                                                                            <label for="idEdit"><b>Id</b></label>
                                                                             <input class="form-control" type="text" disabled th:value="${user.id}" id="idEdit"/>
                                                                             <br>
                                                                             <label for="loginEdit"><b>Login</b></label>
                                                                             <input class="form-control" type="text" th:name="login" th:value="${user.login}" id="loginEdit"/>
                                                                             <br>
                                                                             <label for="passwordEdit"><b>Пароль</b></label></td>
-                                                                            <input class="form-control" type="text" th:name="password" th:value="${user.password}" id="passwordEdit"/>
+                                                                            <input class="form-control" type="password" th:name="password" th:value="${user.password}" id="passwordEdit"/>
                                                                             <br>
                                                                             <label for="firstNameEdit"><b>Имя</b></label>
                                                                             <input class="form-control" type="text" th:name="firstName" th:value="${user.firstName}" id="firstNameEdit"/>
@@ -224,7 +224,7 @@
                                                         <input class="form-control" type="text" th:field="*{login}" id="alogin"/>
                                                         <br>
                                                         <label for="apassword"><b>Пароль</b></label></td>
-                                                        <input class="form-control" type="text" th:field="*{password}" id="apassword"/>
+                                                        <input class="form-control" type="password" th:field="*{password}" id="apassword"/>
                                                         <br>
                                                         <label for="afirstName"><b>Имя</b></label>
                                                         <input class="form-control" type="text" th:field="*{firstName}" id="afirstName"/>
