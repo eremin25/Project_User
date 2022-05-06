@@ -29,7 +29,7 @@ public class AdminController {
     @GetMapping
     public String infoAllUsers(@ModelAttribute("newUser") User user, Model model, Principal principal) {
         model.addAttribute("users", userService.findAllUsers());
-        model.addAttribute("user", userService.findUserByLogin(principal.getName()));
+        model.addAttribute("currentUser", userService.findUserByLogin(principal.getName()));
         model.addAttribute("allRoles", roleService.allRoles());
         return "admin/pageAdmin";
     }
@@ -50,7 +50,7 @@ public class AdminController {
     }
 
     //Получение данных из формы и добавление измененного пользователя в базу данных.
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public String saveUpdatedUser(@ModelAttribute("user") User user, @RequestParam("allRoles") Set<String> roles) {
         user.setRoles(roleService.convertingSetOfStringsToSetOfRoles(roles));
         userService.updateUser(user);

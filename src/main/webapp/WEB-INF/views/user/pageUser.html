@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <!-- Обязательные метатеги -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Information All Users</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+</head>
+<body>
+
+<!--Навигационная панель-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <p class="navbar-brand mb-0 text-white">
+            <b><span class="navbar-text text-white" th:text="${user.getEmail()}">Email</span></b>
+            <span class="navbar-text text-white">с ролями:</span>
+            <span class="navbar-text text-white" th:each="role : ${user.getRoles()}" th:text="${role.getName()}+'&nbsp;'">role</span>
+        </p>
+        <div class="nav-item dropdown mb-0">
+            <a class="nav-link text-secondary" href="/login">Выйти</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3 p-0 m-0">
+            <div class="mt-3">
+
+                <nav>
+                    <div class="nav flex-column nav-pills" role="tablist">
+                        <button class="nav-link active" id="nav-user-tab" data-bs-toggle="tab" data-bs-target="#nav-user" type="button" role="tab" aria-controls="nav-user" aria-selected="false">Пользователь</button>
+                    </div>
+                </nav>
+
+
+            </div>
+        </div>
+        <div class="col-md-9 p-0 m-0">
+            <div class="m-4 mt-3">
+
+
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="nav-user" role="tabpanel" aria-labelledby="nav-user-tab">
+                        <p class="h1">Информация о пользователе</p>
+
+
+                        <div class="mt-4">
+
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title">О пользователе</h5>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Имя</th>
+                                            <th scope="col">Фамилия</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Номер телефона</th>
+                                            <th scope="col">Login</th>
+                                            <th scope="col">Роли</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td th:text="${user.getId()}">Id</td>
+                                            <td th:text="${user.getFirstName()}">First Name</td>
+                                            <td th:text="${user.getLastName()}">Last Name</td>
+                                            <td th:text="${user.getEmail()}">Email</td>
+                                            <td th:text="${user.getNumberPhone()}">Number Phone</td>
+                                            <td th:text="${user.getLogin()}">Login</td>
+                                            <td>
+                                                <table>
+                                                    <tr th:each="roles : ${user.getRoles()}">
+                                                        <td th:text="${roles.getName()}"></td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>

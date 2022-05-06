@@ -28,14 +28,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         //Определяем доступ ролей к определнным адресам
         http.authorizeRequests()
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/admin/**").hasAuthority("ADMIN")
+                .antMatchers("/user/**").hasAnyAuthority("USER", "ADMIN")
                 .anyRequest().permitAll();
 
         //Обрабатываем авторизовавшегося пользователя
         http.formLogin().successHandler(successUserHandler);
 
-        http.logout();
+        http.logout().permitAll();
     }
 
     @Bean
