@@ -51,11 +51,7 @@ public class UserServiceImpl implements UserService {
     */
     @Override
     public void saveUser(User user) {
-        if (userRepository.findUserByLogin(user.getLogin()) == null) {
-            userRepository.save(user);
-        } else {
-            throw new RuntimeException("Пользователь уже существует");
-        }
+        userRepository.save(user);
     }
 
     /*

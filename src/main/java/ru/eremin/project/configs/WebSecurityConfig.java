@@ -30,10 +30,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .antMatchers("/user/**").hasAnyAuthority("USER", "ADMIN")
+                .antMatchers("/registration").not().fullyAuthenticated()
                 .anyRequest().permitAll();
 
         //Обрабатываем авторизовавшегося пользователя
-        http.formLogin().successHandler(successUserHandler);
+        http.formLogin()
+                .loginPage("/login")
+                .usernameParameter("login")
+                .successHandler(successUserHandler);
 
         http.logout().permitAll();
     }

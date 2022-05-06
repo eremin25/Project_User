@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <!-- Обязательные метатеги -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Авторизация</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4 pt-5">
+            <div class="card">
+                <div class="card-body bg-light">
+                    <p class="text-center h1">Авторизация</p>
+
+                    <div class="alert alert-danger text-center" role="alert">Введен неверный login или пароль!</div>
+                    <div class="alert alert-success text-center" role="alert">Выход успешно совершен!</div>
+                    <form method="POST" role="form">
+                        <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" hidden>
+                        <div class="input-group">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" placeholder="Login" th:name="login">
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
+                        <div class="input-group">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8 pt-1">
+                                <input class="form-control" type="password" placeholder="Пароль" th:name="password">
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
+                        <div class="input-group">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8">
+                                <div class="d-grid gap-2 pt-3">
+                                    <button class="btn btn-primary" type="submit">Войти</button>
+                                </div>
+                                <div class="d-grid gap-2 pt-1">
+                                    <a class="btn btn-outline-success" href="/registration" role="button">Регистрация</a>
+                                </div>
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
+                        <br>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+</body>
+</html>
