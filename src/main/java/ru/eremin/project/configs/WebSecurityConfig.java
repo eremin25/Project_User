@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import ru.eremin.project.services.UserService;
 
 @Configuration
@@ -39,7 +40,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("login")
                 .successHandler(successUserHandler);
 
-        http.logout().permitAll();
+        //Обрабатываем выход из приложения
+        http.logout()
+                .logoutSuccessUrl("/logout");
     }
 
     @Bean

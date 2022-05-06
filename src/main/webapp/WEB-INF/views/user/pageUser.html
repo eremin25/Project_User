@@ -19,7 +19,7 @@
             <span class="navbar-text text-white" th:each="role : ${user.getRoles()}" th:text="${role.getName()}+'&nbsp;'">role</span>
         </p>
         <div class="nav-item dropdown mb-0">
-            <a class="nav-link text-secondary" href="/login">Выйти</a>
+            <a class="nav-link text-secondary" href="/logout">Выйти</a>
         </div>
     </div>
 </nav>

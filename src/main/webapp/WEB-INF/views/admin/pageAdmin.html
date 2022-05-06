@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml">
 <head>
     <!-- Обязательные метатеги -->
     <meta charset="utf-8">
@@ -19,7 +19,7 @@
             <span class="navbar-text text-white" th:each="role : ${currentUser.getRoles()}" th:text="${role.getName()}+'&nbsp;'">role</span>
         </p>
         <div class="nav-item dropdown mb-0">
-            <a class="nav-link text-secondary" href="/login">Выйти</a>
+            <a class="nav-link text-secondary" href="/logout">Выйти</a>
         </div>
     </div>
 </nav>
